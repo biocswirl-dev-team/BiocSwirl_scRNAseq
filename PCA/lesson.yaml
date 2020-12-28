@@ -18,7 +18,7 @@
 - Class: cmd_question
   Output: Seurat makes it easy for us to do PCA by providing the RunPCA() function. Use this function on our pbmc object (already in your environment). Set the features flag equal to the VariableFeatures() of your pbmc data, and save the output to your pbmc object
   CorrectAnswer: pbmc <- RunPCA(pbmc, features = VariableFeatures(pbmc))
-  AnswerTests: omnitest(correctExpr(' pbmc <- RunPCA(pbmc, features = VariableFeatures(pbmc))'))
+  AnswerTests: omnitest(correctExpr =' pbmc <- RunPCA(pbmc, features = VariableFeatures(pbmc))')
   Hint: You'll need to nest the VariableFeatures() function in your RunPCA() function under the features flag
   
 - Class: text
@@ -30,7 +30,7 @@
 - Class: cmd_question
   Output: Let's take a look at this using the VizDimLoadings() function on our pbmc data. For now, let's only look at the first 2 principle components by setting the dims flag to 1:2
   CorrectAnswer: VizDimLoadings(pbmc, dims = 1:2)
-  AnswerTests: omnitest(correctExpr('VizDimLoadings(pbmc, dims = 1:2)'))
+  AnswerTests: omnitest(correctExpr = 'VizDimLoadings(pbmc, dims = 1:2)')
   Hint: Make sure to only look at the first two dimensions!
   
 - Class: text
@@ -39,10 +39,11 @@
 - Class: cmd_question
   Output: Use the DimPlot() function to view your pbmc data in the principle component space. Make sure to set the reduction flag equal to 'pca'
   CorrectAnswer: DimPlot(pbmc, reduction = 'pca')
-  AnswerTests: omnitest(correctExpr('DimPlot(pbmc, reduction = 'pca')'))
+  AnswerTests: omnitest(correctExpr = 'DimPlot(pbmc, reduction = "pca")')
   Hint: Don't forget to set your reduction flag to "pca"!
   
 - Class: text
   Output: If your DimPlot worked properly, you should be able to see 3 large groups of cells in your data. This grouping isn't especially meaningful now, but can help provide a sanity check after you've done your clustering.
   
-- Class: Congrats! You have now performed your first dimensionality reduction on single cell data. The next lesson will teach you how to cluster it, so that you can find meaningful differences between cell types. See you there!
+- Class: text
+  Output: Congrats! You have now performed your first dimensionality reduction on single cell data. The next lesson will teach you how to cluster it, so that you can find meaningful differences between cell types. See you there!

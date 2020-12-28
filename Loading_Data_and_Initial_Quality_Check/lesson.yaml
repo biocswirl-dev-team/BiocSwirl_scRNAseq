@@ -61,7 +61,7 @@
 - Class: cmd_question
   Output: Use the VlnPlot function to create a violin plot of the number of features in each cell. Use the pbmc variable as your input data, and set your features equal to "nFeature_RNA"
   CorrectAnswer: VlnPlot(pbmc, features = "nFeature_RNA")
-  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc), feeatures = "nFeature_RNA")')
+  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc, features = "nFeature_RNA")')
   Hint: The number of features can be found in the nFeature_RNA column of the metadata. If you'd like to visualize that more, you can do so by using the View() function on pbmc@meta.data
 
 - Class: cmd_question
@@ -89,12 +89,11 @@
 
 #Visualize Mito and subset
 
-
 - Class: text
-  Output: Now let's visualize each cell's mitochondrial read percentage so we can determine which cells to remove from our dataset, if any. We can do this the same way we visualized the counts and features previously
+  Output: "Now let's visualize each cell's mitochondrial read percentage so we can determine which cells to remove from our dataset, if any. We can do this the same way we visualized the counts and features previously."
   
 - Class: cmd_question
-  Outout: Make a violin plot of the mitochondrial percentage, which you stored in the percent.mt slot of your pbmc variable meta data
+  Output: Make a violin plot of the mitochondrial percentage, which you stored in the percent.mt slot of your pbmc variable meta data
   CorrectAnswer: VlnPlot(pbmc, features = "percent.mt")
   AnswerTests: omnitest(correctExpr='VlnPlot(pbmc, features = "percent.mt")')
   Hint: Try using the same VlnPlot() function as before, but set your features to "percent.mt"
@@ -111,7 +110,7 @@
 - Class: cmd_question
   Output: Use the subset() function to only keep cells with less than 2500 features and less than 5% mitochondrial reads. Save it in your pbmc variable
   CorrectAnswer: pbmc <- subset(pbmc, subset = nFeature_RNA < 2500 & percent.mt < 5)
-  AnswerTests: omnitest(correctExpr:'pbmc <- subset(pbmc, subset = nFeature_RNA < 2500 & percent.mt < 5)')
+  AnswerTests: omnitest(correctExpr ='pbmc <- subset(pbmc, subset = nFeature_RNA < 2500 & percent.mt < 5)')
   Hint: In the function, you'll set your subset equal to both nFeature_RNA < 2500 & percent.mt < 5
   
 - Class: text

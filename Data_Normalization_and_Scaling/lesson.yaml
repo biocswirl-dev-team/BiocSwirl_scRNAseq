@@ -1,7 +1,7 @@
 - Class: meta
   Course: scRNA-seq
   Lesson: Data Normalization and Scaling
-  Author: your name goes here
+  Author: Matthew Moss
   Type: Standard
   Organization:
   Version: 2.4.5
@@ -35,7 +35,7 @@
 - Class: cmd_question
   Output: Run the NormalizeData function on your pbmc variable, which is already loaded in your environment. Save it in the pbmc variable
   CorrectAnswer: pbmc <- NormalizeData(pbmc)
-  AnswerTests: omnitest(correctExpr('pbmc <- NormalizeData(pbmc)'))
+  AnswerTests: omnitest(correctExpr ='pbmc <- NormalizeData(pbmc)')
   Hint: Since you're using all default parameters, you can just run the NormalizeData function on your pbmc Seurat object
   
 #Variable features
@@ -49,7 +49,7 @@
 - Class: cmd_question
   Output: Seurat makes this very easy for us by providing the FindVariableFeatures() function. Try doing this on your pbmc data, saving it in the pbmc variable and using all default parameters
   CorrectAnswer: pbmc <- FindVariableFeatures(pbmc)
-  AnswerTests: omnitest(correctExpr('pbmc <- FindVariableFeatures(pbmc)'))
+  AnswerTests: omnitest(correctExpr ='pbmc <- FindVariableFeatures(pbmc)')
   Hint: Run the FindVariableFeatures() function on your pbmc data and save it in the same variable
   
 - Class: test
@@ -58,7 +58,7 @@
 - Class: cmd_question
   Output: Use the head() and VariableFeatures() function to explore what the most variable genes in your pbmc dataset are
   CorrectAnswer: head(VariableFeatures(pbmc))
-  AnswerTests: omnitest(correctExpr('head(VariableFeatures(pbmc)))')
+  AnswerTests: omnitest(correctExpr = 'head(VariableFeatures(pbmc))')
   Hint: Nest the VariableFeatures() function in the head() function
   
 #Scaling the data
@@ -81,13 +81,13 @@
 - Class: cmd_question
   Output: The gene names are saved as the rownames of our pbmc object. Save them to a variable called all.genes
   CorrectAnswer: all.genes <- rownames(pbmc)
-  AnswerTests: omnitest(correctExpr('all.genes <- rownames(pbmc)'))
+  AnswerTests: omnitest(correctExpr = 'all.genes <- rownames(pbmc)')
   Hint: Use the rownames() function to get this information from the pbmc object
   
 - Class: cmd_question
   Output: Now that we have all of the pieces we need, let's scale our data. Use the ScaleData() function on your pbmc object, use your all.genes variable as your features, and regress out the percent mitochondrial reads using the vars.to.regress flag. Save it to your pbmc object
   CorrectAnswer: pbmc <- ScaleData(pbmc, features = all.genes, vars.to.regress = "percent.mt")
-  AnswerTests: omnitest(correctExpr('pbmc <- ScaleData(pbmc, features = all.genes, vars.to.regress = "percent.mt")'))
+  AnswerTests: omnitest(correctExpr = 'pbmc <- ScaleData(pbmc, features = all.genes, vars.to.regress = "percent.mt")')
   Hint: The percent mitochondrial genes is still saved in the "percent.mt" column of your object!
   
 - Class: text

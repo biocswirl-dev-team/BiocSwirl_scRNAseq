@@ -21,7 +21,7 @@
 - Class: cmd_question
   Output: Let's take a look at our elbow plot using the ElbowPlot() function on our pbmc data (already in your environment)
   CorrectAnswer: ElbowPlot(pbmc)
-  AnswerTests: omnitest(correctExpr('ElbowPlot(pbmc)'))
+  AnswerTests: omnitest(correctExpr = 'ElbowPlot(pbmc)')
   Hint: Run ElbowPlot() on the pbmc variable!
   
 - Class: text
@@ -31,7 +31,7 @@
   Output: With this information in hand, and the knowledge that our object contains approximately 2700 cells, we can begin our clustering
   
 - Class: text
-  The number of cells tells us what resolution we can use, which determines the number of clusters that will be detected in the data. For larger datasets it is possible to use a higher resolution, because more cells allows us to identify less common cell types. For around 3000 cells, Seurat recommendes a resolution between 0.4 and 1.2
+  Output: The number of cells tells us what resolution we can use, which determines the number of clusters that will be detected in the data. For larger datasets it is possible to use a higher resolution, because more cells allows us to identify less common cell types. For around 3000 cells, Seurat recommends a resolution between 0.4 and 1.2 .
   
 - Class: text
   Output: The clustering process occurs in two steps. First, we use the FindNeighbors() function to calculate the distance between our cells in the PC space. Next, the FindClusters() function uses those distances to find which cells are closest to each other, and calls those cells a cluster. There are more complicated algorithms underlying this, but that's the basic understanding
@@ -42,22 +42,22 @@
 - Class: cmd_question
   Output: Run the FindNeighbors() function on our pbmc data. Set the dims flag equal to 1:10 to use 10 principle component dimensions, and save it to the pbmc object
   CorrectAnswer: pbmc <- FindNeighbors(pbmc, dims = 1:10)
-  AnswerTests: omnitest(correctExpr('pbmc <- FindNeighbors(pbmc, dims = 1:10)'))
+  AnswerTests: omnitest(correctExpr = 'pbmc <- FindNeighbors(pbmc, dims = 1:10)')
   Hint: Make sure to set dims = 1:10!
 
 - Class: cmd_question
   Output: Now run the FindClusters() function on our pbmc data. Set the resolution flag equal to 0.5 since we have less the 3000 cells, and save it to the pbmc object
   CorrectAnswer: pbmc <- FindClusters(pbmc, resolution = 0.5)
-  AnswerTests: omnitest(correctExpr('pbmc <- FindClusters(pbmc, resolution = 0.5)'))
+  AnswerTests: omnitest(correctExpr ='pbmc <- FindClusters(pbmc, resolution = 0.5)')
   Hint: Make sure to set resolution = 0.5!
   
 - Class: text
-  Output: Now let's visualize our data and see how many clusters we've identified! Let's first see how those clusters look in the priciple component space
+  Output: "Now let's visualize our data and see how many clusters we've identified! Let's first see how those clusters look in the priciple component space"
   
-- Class: text
+- Class: cmd_question
   Output: Use the DimPlot() function to view our newly clustered data. Set the reduction flag to "pca"
   CorrectAnswer: DimPlot(pbmc, reduction = "pca")
-  AnswerTests: omnitest(correctExpr('DimPlot(pbmc, reduction = "pca")'))
+  AnswerTests: omnitest(correctExpr = 'DimPlot(pbmc, reduction = "pca")')
   Hint: Make sure to set the reduction = "pca"
   
 - Class: text
@@ -69,7 +69,7 @@
 - Class: cmd_question
   Output: Use the RunUMAP() function to project your data into the UMAP space. This function also requires you to specify how many principle components you want to use, so we'll use the same 10 as before. Set your dims flag equal to 1:10 and save it all to you pbmc object
   CorrectAnswer: pbmc <- RunUMAP(pbmc, dims = 1:10)
-  AnswerTests: omnitest(correctExpr('pbmc <- RunUMAP(pbmc, dims = 1:10)'))
+  AnswerTests: omnitest(correctExpr = 'pbmc <- RunUMAP(pbmc, dims = 1:10)')
   Hint: Make sure to set dims = 1:10!
   
 - Class: text
@@ -78,7 +78,7 @@
 - Class: cmd_question
   Output: Run the DimPlot() function on your pbmc object again, but this time set your reduction flag equal to "umap"
   CorrectAnswer: DimPlot(pbmc, reduction = "umap")
-  AnswerTests: omnitest(correctExpr('DimPlot(pbmc, reduction = "umap")'))
+  AnswerTests: omnitest(correctExpr = 'DimPlot(pbmc, reduction = "umap")')
   Hint: Don't forget to set your reduction = "umap"!
   
 - Class: text
