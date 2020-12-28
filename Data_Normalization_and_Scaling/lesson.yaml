@@ -1,0 +1,95 @@
+- Class: meta
+  Course: scRNA-seq
+  Lesson: Data Normalization and Scaling
+  Author: your name goes here
+  Type: Standard
+  Organization:
+  Version: 2.4.5
+
+
+- Class: text
+  Output: To begin this lesson, let's start by loading the Seurat library. We will be using function from this library for the duration of the lesson
+  
+- Class: cmd_question
+  Output: Load the Seurat library
+  CorrectAnswer: library(Seurat)
+  AnswerTests: omnitest(correctExpr='library(Seurat)')
+  Hint: Use the library() function on the Seurat package
+
+#Normalize Data
+- Class: text
+  Output: Now that we have our cleaned dataset, it's time for us to remove unwanted noise from our expression data
+  
+- Class: text
+  Output: We're going to do this in two steps. First, we will log normalize the expression of every gene. While there are other normalization methods that one can use, they will not be explored in this course as the log normaliation is very commonly used, and is the default in Seurat
+  
+- Class: text
+  Output: This method wil normalize the expression of each gene, in each cell, relative to the total levels of gene expression. Then it will multiiply that relative expression by a scaling factor, and finally log transform the result. 
+  
+- Class: text
+  Output: This process removes unwanted noise from our gene expression and allows us to compare all cells to each other
+  
+- Class: text
+  Output: In Seurat, we are able to do this entire normalization with one function, the NormalizeData() function, using default parameters
+  
+- Class: cmd_question
+  Output: Run the NormalizeData function on your pbmc variable, which is already loaded in your environment. Save it in the pbmc variable
+  CorrectAnswer: pbmc <- NormalizeData(pbmc)
+  AnswerTests: omnitest(correctExpr('pbmc <- NormalizeData(pbmc)'))
+  Hint: Since you're using all default parameters, you can just run the NormalizeData function on your pbmc Seurat object
+  
+#Variable features
+
+- Class: text
+  Output: Now that our gene expression has been normalized within each cell, we can start to determine interesting gene expression patters
+  
+- Class: text
+  Output: One of the most important things for us to determine is the genes in our dataset with the most variable expression. These will be used later to identify different cell types in the data
+  
+- Class: cmd_question
+  Output: Seurat makes this very easy for us by providing the FindVariableFeatures() function. Try doing this on your pbmc data, saving it in the pbmc variable and using all default parameters
+  CorrectAnswer: pbmc <- FindVariableFeatures(pbmc)
+  AnswerTests: omnitest(correctExpr('pbmc <- FindVariableFeatures(pbmc)'))
+  Hint: Run the FindVariableFeatures() function on your pbmc data and save it in the same variable
+  
+- Class: test
+  Output: Seurat makes it very easy to see what your most variable genes are by providing the VariableFeatures() function
+
+- Class: cmd_question
+  Output: Use the head() and VariableFeatures() function to explore what the most variable genes in your pbmc dataset are
+  CorrectAnswer: head(VariableFeatures(pbmc))
+  AnswerTests: omnitest(correctExpr('head(VariableFeatures(pbmc)))')
+  Hint: Nest the VariableFeatures() function in the head() function
+  
+#Scaling the data
+
+- Class: text
+  Output: The final way we will prepare our data will be to scale it. This scaling helps remove unwanted variation while also preparing for downstream principle component analysis
+  
+- Class: text
+  Output: The scaling will have two aspects. First, it will shift the expression of each gene so that the mean expression across cells is 0
+
+- Class: text
+  Output: Additionally, it will also scale the expression of each gene so the variance across cells is 0
+
+- Class: text
+  Output: Within this step, we will also regress out unwanted sources of variation from the data. In this case it will be the mitochondrial gene percentage of our remaining cells
+  
+- Class: text
+  Output: Before we do this, we need to create a list of all the genes in our dataset. We will use this to tell the function which genes to scale
+  
+- Class: cmd_question
+  Output: The gene names are saved as the rownames of our pbmc object. Save them to a variable called all.genes
+  CorrectAnswer: all.genes <- rownames(pbmc)
+  AnswerTests: omnitest(correctExpr('all.genes <- rownames(pbmc)'))
+  Hint: Use the rownames() function to get this information from the pbmc object
+  
+- Class: cmd_question
+  Output: Now that we have all of the pieces we need, let's scale our data. Use the ScaleData() function on your pbmc object, use your all.genes variable as your features, and regress out the percent mitochondrial reads using the vars.to.regress flag. Save it to your pbmc object
+  CorrectAnswer: pbmc <- ScaleData(pbmc, features = all.genes, vars.to.regress = "percent.mt")
+  AnswerTests: omnitest(correctExpr('pbmc <- ScaleData(pbmc, features = all.genes, vars.to.regress = "percent.mt")'))
+  Hint: The percent mitochondrial genes is still saved in the "percent.mt" column of your object!
+  
+- Class: text
+  Output: Congrats! You've now cleaned your data and are ready to analyze it. In the next lesson you will have the opportunity to explore the variation in your data using principle component analysis!
+  

@@ -1,0 +1,122 @@
+- Class: meta
+  Course: scRNA-seq
+  Lesson: Loading Data and Initial Quality Check
+  Author: Matthew Moss
+  Type: Standard
+  Organization:
+  Version: 2.4.5
+
+
+#Load data in 10X Format
+
+- Class: text
+  Output: If our single cell RNA-seq data was inititally processed using the 10X Cell Ranger Pipeline, it will be contained in 3 files, all in one folder. 
+  
+- Class: text
+  Output: These files contain the gene names, the cell barcodes, and a counts matrix that is associated with the previous 2 files. These will all be located in one folder. 
+  
+- Class: cmd_question
+  Output: Before we begin, let's load the Seurat R package. This is a popular package for analyzing Single Cell data in R, and what we will be primarily using for this course
+  CorrectAnswer: library(Seurat)
+  AnswerTests: omnitest(correctExpr='library(Seurat)')
+  Hint: Use the library() function with the package Seurat
+  
+- Class: text
+  Output: The first step will be to load the data into our environment. 
+  
+- Class: cmd_question
+  Output: Use the Read10X() command to load our data into R. Save it into the variable "pbmc.raw". The data is in our current working directory, which can be acquired with the function getwd()
+  CorrectAnswer: pbmc.raw <- Read10X(data.dir = getwd())
+  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(data.dir = getwd())' )
+  Hint: Try nesting the getwd() function in the Read10X function, like so! 'pbmc.raw <- Read10X(data.dir = getwd())'
+
+#Convert data to seurat format
+
+- Class: text
+  Output: Very good! The next step will be to convert this raw data into an object usable by the R package we'll analayze our data with. 
+
+- Class: text
+  Output: To do this, we'll take the pbmc.raw data and run it through the pre-built function to convert raw data to seurat data
+  
+- Class: text
+  Output: To do this, let's use the CreateSeuratObject() function. This function contains several quality metrics right from the get-go!
+  
+- Class: cmd_question
+  Output: Use the CreateSeuratObject() function to convert our data from raw data to a Seurat object. Set the counts flag to be our pbmc.raw variable. Use the min.cells flag to make it so only genes in 3 or more cells remain in our data, and the min.features flag to ensure only cells with greater than 200 genes remain. These are good starting points for this data, but should be explored in your own data prior to starting analysis. Save your answer in the 'pbmc' variable
+  CorrectAnswer: pbmc <- CreateSeuratObject(counts = pbmc.raw, min.cells = 3, min.features = 200)
+  AnswerTests: omnitest(correctExpr='pbmc <- CreateSeuratObject(counts = pbmc.raw, min.cells = 3, min.features = 200)')
+  Hint: There are many pieces of this function that have to be filled. Try setting 'counts' equal to pbmc.raw, 'min.cells' equal to 3, and 'min.features' equal to 200 
+
+#Initial counts QC visualization
+
+- Class: text
+  Output: Awesome! Now it is important to determine the quality of our data. We will do this in several steps, each of which is important.
+  
+- Class: text
+  Output: Seurat makes it very easy to view the number of features (or genes) and the number of reads in each cell you have sequenced. Let's start there to see how our data looks. We'll look at each of them one at a time
+  
+- Class: text
+  Output: First let's look at the number of features (genes) that are detected in every cell
+  
+- Class: cmd_question
+  Output: Use the VlnPlot function to create a violin plot of the number of features in each cell. Use the pbmc variable as your input data, and set your features equal to "nFeature_RNA"
+  CorrectAnswer: VlnPlot(pbmc, features = "nFeature_RNA")
+  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc), feeatures = "nFeature_RNA")')
+  Hint: The number of features can be found in the nFeature_RNA column of the metadata. If you'd like to visualize that more, you can do so by using the View() function on pbmc@meta.data
+
+- Class: cmd_question
+  Output: Now do the same for the number of counts (or reads) found in each cell. These will be stored in the nCounts_RNA column
+  CorrectAnswer: VlnPlot(pbmc, features = "nCounts_RNA")
+  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc, features = "nCounts_RNA")')
+  Hint: The number of counts can be found in the nCounts_RNA column of the metadata. If you'd like to visualize that more, you can do so by using the View() function on pbmc@meta.data
+
+#Mito calc
+
+- Class: text
+  Output: The next step will be to determine the percent of genes expressed in every cell that are related to mitochondrial genes. 
+  
+- Class: text
+  Output: While in some situations these can be important for to understand metabolic functions in the cell, it is often the case that in single cell data high mitochondrial gene expression is representative of low quality data from dying cells. 
+  
+- Class: text
+  Output: In our Seurat object, mitochondrial genes contain the pattern "MT-". Because of this, it is possible to search for them in our Seurat object and find the percent of each cell's total gene expression that is related to mitochondrial genes
+  
+- Class: cmd_question
+  Output: Calculate the percent of each cells gene expression that is mitochondrial using the PercentageFeatureSet() function, setting the pattern flag to "^MT-". Save it in the pbmc dataset in the metadata column [["percent.mt""]]
+  CorrectAnswer: pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-")
+  AnswerTests: omnitest(correctExpr='pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern= "^MT-")')
+  Hint: It is not so hard to add a column to the metadata of a Seurat object. All you have to do is this! 'pbmc[["percent.mt"]] <- PercentageFeatureSet(pbmc, pattern = "^MT-") '
+
+#Visualize Mito and subset
+
+
+- Class: text
+  Output: Now let's visualize each cell's mitochondrial read percentage so we can determine which cells to remove from our dataset, if any. We can do this the same way we visualized the counts and features previously
+  
+- Class: cmd_question
+  Outout: Make a violin plot of the mitochondrial percentage, which you stored in the percent.mt slot of your pbmc variable meta data
+  CorrectAnswer: VlnPlot(pbmc, features = "percent.mt")
+  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc, features = "percent.mt")')
+  Hint: Try using the same VlnPlot() function as before, but set your features to "percent.mt"
+  
+- Class: text
+  Output: Great job! Now that we've visualized our data, we can see that there are some cells that should be removed. This could be because they have too many (or too few) features relative to the others, too many reads relative to the others, or too high a mitochondrial reads percent. 
+  
+- Class: text
+  Output: These metrics will be different based on the data set you're looking at, but for this data it seems we should remove cells with more than 2500 features and more than 5% mitochondrial reads
+  
+- Class: text
+  Output: In order to do this, we will use the subset() function. This is a very powerful function that allows us to keep or remove cells in our data based on user defined parameters.
+  
+- Class: cmd_question
+  Output: Use the subset() function to only keep cells with less than 2500 features and less than 5% mitochondrial reads. Save it in your pbmc variable
+  CorrectAnswer: pbmc <- subset(pbmc, subset = nFeature_RNA < 2500 & percent.mt < 5)
+  AnswerTests: omnitest(correctExpr:'pbmc <- subset(pbmc, subset = nFeature_RNA < 2500 & percent.mt < 5)')
+  Hint: In the function, you'll set your subset equal to both nFeature_RNA < 2500 & percent.mt < 5
+  
+- Class: text
+  Output: Congrats, you have now created and cleaned up your first single cell dataset! In our next lesson, you'll normalize this data (removing batch effects, normalizing relative gene expression levels) to allow for downstream analysis
+
+
+
+
