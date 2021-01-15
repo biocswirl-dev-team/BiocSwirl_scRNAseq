@@ -1,0 +1,122 @@
+- Class: meta
+  Course: scRNA-seq
+  Lesson: Cluster Identification
+  Author: Matthew Moss
+  Type: Standard
+  Organization: 
+  Version: 2.4.5
+
+
+- Class: text
+  Output: One of the most important parts of a single cell analysis is identifying what type of cell each cluster corresponds to
+  
+- Class: text
+  Output: If your normalizations have been successful, each cluster will be different from other clusters in either the type of cell it is, or the functional state it is currently in
+  
+- Class: text
+  Output: This lesson will cover two methods of cell type identification. First, we will use known cell type markers to identify one cell. Then, we will search for markers that could be used to identify them de novo
+  
+- Class: text
+  Output: Let's start by trying to identify one specific type of cell in our data. We will use a known marker of B-cells to try to find what cluster corresponds to them
+  
+- Class: text
+  Output: CD20 is a commonly used protein marker for B Cells. It is encoded by the gene MS4A1. Let's try to use MS4A1 expression to identify our B cell cluster
+  
+- Class: cmd_question
+  Output: Create a violin plot of our pbmc data for the gene 'MS4A1'
+  CorrectAnswer: VlnPlot(pbmc, features = 'MS4A1')
+<<<<<<< HEAD
+  AnswerTests: omnitest(correctExpr = 'VlnPlot(pbmc, features = "MS4A1")')
+=======
+  AnswerTests: omnitest(correctExpr('VlnPlot(pbmc, features = 'MS4A1')'))
+>>>>>>> 7574e0e... add Cluster_ID lesson
+  Hint: Make sure to set your "features" flag equal to"MS4A1"
+  
+- Class: text
+  Output: Excellent! Based on this violin plot, you can see that cluster 3 is composed of B cells. as it is the only cluster that expresses the B Cell maker gene
+  
+- Class: text
+  Output: Depending on your dataset, there may be several markers you know you can use in order to identify the cells in each cluster
+  
+- Class: text
+<<<<<<< HEAD
+  Output: "Now let's see how you can identify your cells if you DON'T have any markers you know from the start"
+=======
+  Output: Now let's see how you can identify your cells if you DON'T have any markers you know from the start
+>>>>>>> 7574e0e... add Cluster_ID lesson
+  
+- Class: text
+  Output: Seurat makes it possible to do this for either one specific cluster OR for all of your clusters at the same time. We will explore both in this lesson
+  
+- Class: text
+  Output: If you want to get markers for just one cluster, you can use the FindMarkers() function. This will return a data frame containing your markers, a p-value for each one, the percent of cells in that cluster expressing the gene AND the percent not in that cluster expressing the gene, and a fold change measurement. These are all useful for determining if a given gene is a useful marker for that type of cell
+  
+- Class: cmd_question
+<<<<<<< HEAD
+  Output: Let's try it on the cluster we previously identified as B cells. Use the FindMarkers() function on your pbmc data. Set your "ident.1" flag equal to 3 and set your "only.pos" flag equal to TRUE, so you only get genes that are upregulated in that cluster. Save your answer in a variable called "clust3.markers"
+  CorrectAnswer: clust3.markers <- FindMarkers(pbmc, ident.1 = 3, only.pos = TRUE)
+  AnswerTests: omnitest(correctExpr ='clust3.markers <- FindMarkers(pbmc, ident.1 = 3, only.pos = TRUE)')
+=======
+  Output: Let's try it on the cluster we previously identified as B cells. Use the FindMarkers() function on your pbmc data. Set your "cells.1" flag equal to 3 and set your "only.pos" flag equal to TRUE, so you only get genes that are upregulated in that cluster. Save your answer in a variable called "clust3.markers"
+  CorrectAnswer: clust3.markers <- FindMarkers(pbmc, cells.1 = 3, only.pos = TRUE)
+  AnswerTests: omnitest(correctExpr('clust3.markers <- FindMarkers(pbmc, cells.1 = 3, only.pos = TRUE)'))
+>>>>>>> 7574e0e... add Cluster_ID lesson
+  Hint: Make sure to set "cells.1" equal to 3 and "only.pos" equal to TRUE!
+  
+- Class: cmd_question
+  Output: Very good! Now let's take a look at those markers. Use the View() function on your clust3.markers variable to see the top markers for that cluster
+  CorrectAnswer: View(clust3.markers)
+<<<<<<< HEAD
+  AnswerTests: omnitest(correctExpr = 'View(clust3.markers)')
+=======
+  AnswerTests: omnitest(correctExpr('View(clust3.markers)'))
+>>>>>>> 7574e0e... add Cluster_ID lesson
+  Hint: Use the View() function!
+  
+- Class: text
+  Output: As you can see, MS4A1 pops up as a marker, in addition to various other genes. These can be useful for identifying functions of the cell, in addition to the cell type
+  
+- Class: text
+  Output: We briefly discussed before that it is possible to find markers for all of the cell types in your data simultaneously. Now let's try it out!
+
+- Class: cmd_question
+  Output: Try running the FindAllMarkers() function on your pbmc data to find makers for every cluster. Save it in a varaible called "pbmc.markers". Make sure to set your only.pos flag to TRUE again!
+  CorrectAnswer: pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE)
+<<<<<<< HEAD
+  AnswerTests: omnitest(correctExpr = 'pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE)')
+=======
+  AnswerTests: omnitest(correctExpr('pbmc.markers <- FindAllMarkers(pbmc, only.pos = TRUE)'))
+>>>>>>> 7574e0e... add Cluster_ID lesson
+  Hint: Set only.pos equal to TRUE so you only get markers upregulated in each cluster!
+  
+- Class: text
+  Output: This function is great, but it does provide a lot of markers for each cluster. If we want only the top 10, we're going to need to use functions from the powerful dplyr library to extract those.
+  
+- Class: text
+  Output: While the dplyr library is VERY useful, we will not discuss it in detail in this lesson. For now, I will give you the code that can be used to extract the top 10 and save it in a variable named "pbmc.top10". We will use this variable for the next step
+
+- Class: text
+  Output: In order to get the top 10 markers, you would write "pbmc.top10 <- pbmc.markers %>% group_by(cluster) %>% top_n(n = 10, wt = avg_logFC)". This line of code groups our data by its clusters, sorts by top log fold change, and then extracts the ones that are most differentially expressed in each cluster. I encourage you to explore that line, and dplyr in general, so that you really understand what it's doing!
+  
+- Class: text
+  Output: One of the most common ways to visualize your markers across all clusters is with a gene expression heatmap. 
+  
+- Class: cmd_question
+  Output: Create your heatmap for your top 10 markers! Use the DoHeatmap() function on your pbmc data, setting the features flag equal to "pbmc.top10$gene", so it will plot the expression of the marker genes calculated in the previous steps
+  CorrectAnswer: DoHeatmap(pbmc, features = pbmc.top10$gene)
+<<<<<<< HEAD
+  AnswerTests: omnitest(correctExpr = 'DoHeatmap(pbmc, features = pbmc.top10$gene)')
+=======
+  AnswerTests: omnitest(correctExpr('DoHeatmap(pbmc, features = pbmc.top10$gene)'))
+>>>>>>> 7574e0e... add Cluster_ID lesson
+  Hint: Make sure to set your features to "pbmc.top10$gene", and not just "pbmc.top10"!
+  
+- Class: text
+  Output: Great! That heatmap is an incredibly useful tool for identifying what types of cells each cluster corresponds to, and what those cells might be doing. If you don't know what cell type you're looking at, you can explore the biological functions of those genes with further research!
+  
+- Class: text
+<<<<<<< HEAD
+  Output: That's all for this lesson. In future lessons we will explore gene ontology analysis on single cell data, pseudotime analysis, and multimodal data integration. See you then!
+=======
+  Output: That's all for this lesson. In future lessons we will explore gene ontology analysis on single cell data, pseudotime analysis, and multimodal data integration. See you then!
+>>>>>>> 7574e0e... add Cluster_ID lesson
