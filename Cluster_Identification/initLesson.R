@@ -18,12 +18,11 @@ if (!requireNamespace("ggplot2", quietly = TRUE))
 if (!requireNamespace("dplyr", quietly = TRUE))
   BiocManager::install("dplyr")
 
-<<<<<<< HEAD
+
 library(Seurat)
 library(ggplot2)
 library(dplyr)
 
 load(file.path(.get_course_path(), "BiocSwirl_scRNAseq", "Cluster_Identification","pbmc_clusterIdents.RData"))
-=======
-load(file.path(.get_course_path(), "scRNA-seq", "Cluster_Identification","pbmc_clusterIdents.RData"))
->>>>>>> 7574e0e... add Cluster_ID lesson
+
+load(file.path(.get_course_path(), "BiocSwirl_scRNAseq", "Cluster_Identification","pbmc_clusterIdents.RData"))
