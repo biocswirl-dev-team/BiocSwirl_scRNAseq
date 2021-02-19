@@ -15,4 +15,4 @@ if (!requireNamespace("Seurat", quietly = TRUE))
 if (!requireNamespace("ggplot2", quietly = TRUE))
   BiocManager::install("ggplot2")
 
-pbmc <- readRDS(file.path(.get_course_path(), "scRNA_too_big", "Single_Cell_Clustering","pbmc_pca.rds"))
+pbmc <- readRDS(file.path(.get_course_path(), "BiocSwirl_scRNAseq", "Single_Cell_Clustering","pbmc_pca.rds"))
