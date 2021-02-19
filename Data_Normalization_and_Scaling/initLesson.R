@@ -12,4 +12,4 @@
 if (!requireNamespace("Seurat", quietly = TRUE))
   BiocManager::install("Seurat")
 
-pbmc <- readRDS(file.path(.get_course_path(), "scRNA_too_big", "Data_Normalization_and_Scaling","pbmc.rds"))
+pbmc <- readRDS(file.path(.get_course_path(), "Data_Normalization_and_Scaling","pbmc.rds"))
