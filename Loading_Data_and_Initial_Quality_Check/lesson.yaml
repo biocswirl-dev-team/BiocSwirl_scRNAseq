@@ -15,7 +15,7 @@
   Output: Packages are units of shareable R code and contain predefined functions. Loading and installing these packages allows us to use these (often elaborate) functions and not having to write our own for the same purpose.
 
 - Class: text
-  Output: Bioconductor is a open source and open development software project for the analysis of genomic/high throughput datasets. The project is based mostly on R packages.  
+  Output: Bioconductor is a open source and open development software project for the analysis of genomic/high throughput datasets. The project is based mostly on R packages.
 
 - Class: cmd_question
   Output: The Bioconductor project uses a different installer/manager for their packages. So, in case it is not installed yet, we will do that. Use what you just learned to install the R package "BiocManager"
