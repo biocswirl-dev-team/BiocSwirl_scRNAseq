@@ -17,19 +17,6 @@
 - Class: text
   Output: Bioconductor is a open source and open development software project for the analysis of genomic/high throughput datasets. The project is based mostly on R packages.
 
-- Class: cmd_question
-  Output: The Bioconductor project uses a different installer/manager for their packages. So, in case it is not installed yet, we will do that. Use what you just learned to install the R package "BiocManager"
-  CorrectAnswer: install.packages("BiocManager")
-  AnswerTests: omnitest(correctExpr='install.packages("BiocManager")')
-  Hint: Try typing install.packages("BiocManager")
-
- # this one is a little iffy on my computer
-- Class: cmd_question
-  Output: With the BiocManager package installed, we can now install Bioconductor packages. Type BiocManager::install("Seurat") to install the Bioconductor package Seurat.
-  CorrectAnswer: BiocManager::install("Seurat")
-  AnswerTests: omnitest(correctExpr='BiocManager::install("Seurat")')
-  Hint: You might want to read the question again.  
-
 #Load data in 10X Format
 
 - Class: text
