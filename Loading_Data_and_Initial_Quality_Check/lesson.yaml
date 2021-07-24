@@ -9,7 +9,7 @@
 #Load data in 10X Format
 
 - Class: text
-  Output: If our single cell RNA-seq data was inititally processed using the 10X Cell Ranger Pipeline, it will be contained in 3 files, all in one folder. 
+  Output: If our single cell RNA-seq data was initially processed using the 10X Cell Ranger Pipeline, it will be contained in 3 files, all in one folder. 
   
 - Class: text
   Output: These files contain the gene names, the cell barcodes, and a counts matrix that is associated with the previous 2 files. These will all be located in one folder. 
@@ -24,10 +24,10 @@
   Output: The first step will be to load the data into our environment. 
   
 - Class: cmd_question
-  Output: Use the Read10X() command to load our data into R. Save it into the variable "pbmc.raw". The data is in our current working directory, which can be acquired with the function getwd()
-  CorrectAnswer: pbmc.raw <- Read10X(data.dir = getwd())
-  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(data.dir = getwd())' )
-  Hint: Try nesting the getwd() function in the Read10X function, like so! 'pbmc.raw <- Read10X(data.dir = getwd())'
+  Output: Use the Read10X() command to load our data into R. Save it into the variable "pbmc.raw". The data is called "barcodes.tsv.gz".
+  CorrectAnswer: pbmc.raw <- Read10X(barcodes.tsv.gz)
+  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(barcodes.tsv.gz' )
+  Hint: Try calling the barcodes.tsv.gz file in the Read10X function, like so! 'pbmc.raw <- Read10X(barcodes.tsv.gz)'
 
 #Convert data to seurat format
 
