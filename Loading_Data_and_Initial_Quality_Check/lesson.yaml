@@ -6,17 +6,6 @@
   Organization:
   Version: 2.4.5
 
-#Install packages
-
-- Class: text
-  Output: Before we begin with your class of choice, let's take a quick look at how to download and install R and Bioconductor packages.
-  
-- Class: text
-  Output: Packages are units of shareable R code and contain predefined functions. Loading and installing these packages allows us to use these (often elaborate) functions and not having to write our own for the same purpose.
-
-- Class: text
-  Output: Bioconductor is a open source and open development software project for the analysis of genomic/high throughput datasets. The project is based mostly on R packages.
-
 #Load data in 10X Format
 
 - Class: text
