@@ -12,4 +12,4 @@
 if (!requireNamespace("Seurat", quietly = TRUE))
   BiocManager::install("Seurat")
 
-barcodes.tsv <- file.path(.get_course_path(), 'BiocSwirl_scRNAseq', 'barcodes.tsv.gz')
+barcodes.tsv.gz <- file.path(.get_course_path(), 'BiocSwirl_scRNAseq', 'barcodes.tsv.gz')
