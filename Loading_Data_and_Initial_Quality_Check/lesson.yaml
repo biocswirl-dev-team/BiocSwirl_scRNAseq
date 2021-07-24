@@ -26,7 +26,7 @@
 - Class: cmd_question
   Output: Use the Read10X() command to load our data into R. Save it into the variable "pbmc.raw". The data is called "barcodes.tsv.gz".
   CorrectAnswer: pbmc.raw <- Read10X(barcodes.tsv.gz)
-  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(barcodes.tsv.gz' )
+  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(barcodes.tsv.gz)' )
   Hint: Try calling the barcodes.tsv.gz file in the Read10X function, like so! 'pbmc.raw <- Read10X(barcodes.tsv.gz)'
 
 #Convert data to seurat format
