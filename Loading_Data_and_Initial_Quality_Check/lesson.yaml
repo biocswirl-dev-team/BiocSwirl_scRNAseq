@@ -24,10 +24,10 @@
   Output: The first step will be to load the data into our environment. 
   
 - Class: cmd_question
-  Output: Use the Read10X() command to load our data into R. Save it into the variable "pbmc.raw". The data is called "barcodes.tsv.gz".
-  CorrectAnswer: pbmc.raw <- Read10X(barcodes.tsv.gz)
-  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(barcodes.tsv.gz)' )
-  Hint: Try calling the barcodes.tsv.gz file in the Read10X function, like so! 'pbmc.raw <- Read10X(barcodes.tsv.gz)'
+  Output: Use the Read10X() command to load our data into R. Save it into the variable "pbmc.raw". The files are located in course_path. 
+  CorrectAnswer: pbmc.raw <- Read10X(course_path)
+  AnswerTests: omnitest(correctExpr='pbmc.raw <- Read10X(course_path)' )
+  Hint: Try putting the course_path in the Read10X function, like so! 'pbmc.raw <- Read10X(course_path)'
 
 #Convert data to seurat format
 
