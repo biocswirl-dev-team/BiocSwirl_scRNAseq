@@ -64,10 +64,10 @@
   Hint: The number of features can be found in the nFeature_RNA column of the metadata. If you'd like to visualize that more, you can do so by using the View() function on pbmc@meta.data
 
 - Class: cmd_question
-  Output: Now do the same for the number of counts (or reads) found in each cell. These will be stored in the nCounts_RNA column
-  CorrectAnswer: VlnPlot(pbmc, features = "nCounts_RNA")
-  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc, features = "nCounts_RNA")')
-  Hint: The number of counts can be found in the nCounts_RNA column of the metadata. If you'd like to visualize that more, you can do so by using the View() function on pbmc@meta.data
+  Output: Now do the same for the number of counts (or reads) found in each cell. These will be stored in the nCount_RNA column
+  CorrectAnswer: VlnPlot(pbmc, features = "nCount_RNA")
+  AnswerTests: omnitest(correctExpr='VlnPlot(pbmc, features = "nCount_RNA")')
+  Hint: The number of counts can be found in the nCount_RNA column of the metadata. If you'd like to visualize that more, you can do so by using the View() function on pbmc@meta.data
 
 #Mito calc
 
